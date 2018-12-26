@@ -1,17 +1,20 @@
-// If things do not work after changing DAC settings then take few more readings.
+// if things do not work reset DAC and Arduino couple of times
+// or just reject first few readings.
 // It takes few cycles for changes to take effect.
 
-// By default on powerup this chip is set to make continious conversions on channel 1 at 12bit
+// By default on power-up this chip is set to make continuous conversions on channel 1 at 12bit
 // To begin interaction with this ADC it can simply be asked for two bytes (Wire.requestFrom(MCP3422_ADDRESS, 2);)
 // if to ask for 3 or more bytes it will display contents of it's 'config' register.
 
 // For 12, 14 and 16 bits a reading is made up of two bytes and it can be stored as an int type variable.
 // In each case first byte has 8, 6 or 4 meaningful bits on left side (LSB).
 // So bytes on the right side are cleared (or'ed) with a mask.
-// For 18 bit reading 3 bytes are returend and they have to be stored as long type variable.
-// Of those 3 bits two left bits are fill with meaningful data, but left bit has meaninful data only it's last (right) two bits.
+// For 18 bit reading 3 bytes are returned and they have to be stored as long type variable.
+// Of those 3 bits two left bits are fill with meaningful data, but left bit has meaningful data only it's last (right) two bits.
+// These masks in my code are not set correctly and should be fixed!!
 
 // convenient list of multipliers: https://github.com/uChip/MCP342X/blob/master/MCP342X.cpp
+
 
 #include  <Wire.h>
 #define MCP3422_ADDRESS 0X68
